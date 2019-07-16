@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Periods - Add</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+<div class="container my-5">
+    <h3> Add Period</h3>
+    <div class="card">
+        <div class="card-body">
+            <div class="col-md-10">
+                <form action="#" th:action="@{/periods/add}"
+                      th:object="${period}" method="post">
+                    <div class="row">
+                        <div class="form-group col-md-2">
+                            <select th:field="*{period}" class="form-control" id="period">
+                                <option th:each="opt : ${prdList}"
+                                        th:value="${opt.id}"
+                                        th:utext="${opt.value}"/>
+                            </select>
+                            <span th:if="${#fields.hasErrors('period')}" th:errors="*{period}"
+                                  class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <select th:field="*{month}" class="form-control" id="month">
+                                <option th:each="opt : ${monthList}"
+                                        th:value="${opt.id}"
+                                        th:utext="${opt.value}"/>
+                            </select>
+                            <span th:if="${#fields.hasErrors('month')}" th:errors="*{month}"
+                                  class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <select th:field="*{year}" class="form-control" id="year">
+                                <option th:each="opt : ${yearList}"
+                                        th:value="${opt.id}"
+                                        th:utext="${opt.value}"/>
+                            </select>
+                            <span th:if="${#fields.hasErrors('period')}" th:errors="*{period}"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-4">
+                            <input type="submit" class="btn btn-primary" value="Add Period">
+                        </div>
+
+                        <div class="form-group col-md-6"></div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Home</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <p>This is an unsecured page, but you can access the secured pages after authenticating.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Time Sheet</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <form action="#"
+          th:action="@{/timesheet/update}"
+          th:object="${timeSheetView}" method="post">
+            <div class="form-group col-md-2">
+                <label for="period" class="col-form-label">Period</label>
+                <select th:field="*{period}" class="form-control" id="period"
+                        onchange="this.form.submit()">>
+                    <option th:each="opt : *{periods}"
+                            th:value="${opt.id}"
+                            th:utext="${opt.value}"/>
+                </select>
+                <label for="status" class="col-form-label">Status</label>
+                <input type="text" th:field="*{periodStatus.status}" class="form-control" id="status" disabled="true" placeholder="status">
+            </div>
+            <div class="form-group">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th class="col-md-2">WBS</th>
+                        <th:block th:each="i : ${#numbers.sequence(0, timeSheetView.periodEnd)}">
+                            <th align="center" th:classappend="*{calenderInfoList[__${i}__].status}">
+                                <small th:text="*{#dates.day(calenderInfoList[__${i}__].date)}"/>
+                                <small th:text="*{#dates.dayOfWeekNameShort(calenderInfoList[__${i}__].date)}"/>
+                            </th>
+                        </th:block>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="row, itemStat : *{rows}">
+                        <td>
+                            <div class="input-group input-group-sm mb-3">
+                                <select th:field="*{rows[__${itemStat.index}__].chargeCode}" class="form-control" id="chargeCode">
+                                    <option th:each="opt : *{wbs}"
+                                            th:value="${opt.id}"
+                                            th:utext="${opt.value}"/>
+                                </select>
+                            </div>
+                        </td>
+                        <th:block th:each="i : ${#numbers.sequence(0, timeSheetView.periodEnd)}">
+                            <td >
+                                <div class="input-group input-group-sm mb-3">
+                                    <input type="text" th:field="*{rows[__${itemStat.index}__].hours[__${i}__]}" class="form-control cell"
+                                    th:classappend="*{dayStyle[__${i}__]}">
+                                </div>
+                            </td>
+                        </th:block>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="form-group">
+                <div class="form-group col-sm">
+                    <a th:href="@{/timesheet/addRow}" class="btn btn-primary">
+                        <i class="fas fa-user-edit ml-2">Add Row</i>
+                    </a>
+                </div>
+                <div class="form-group col-sm">
+                    <input type="submit" class="btn btn-primary" name="action" value="submit">
+                </div>
+            </div>
+    </form>
+</div>
+</body>
+</html>

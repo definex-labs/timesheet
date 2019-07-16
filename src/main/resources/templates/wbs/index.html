@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>WBS</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+<div class="container my-2">
+    <div class="card">
+        <div class="card-body">
+            <div th:switch="${entityList}" class="container my-5">
+                <p class="my-5">
+                    <a href="/wbs/add" class="btn btn-primary"><i
+                            class="fas fa-user-plus ml-2"> Add WBS</i></a>
+                </p>
+                <div class="col-md-10">
+                    <h2 th:case="null">No WBS yet!</h2>
+                    <div th:case="*">
+                        <table class="table table-striped table-responsive-md">
+                            <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Description</th>
+                                <th>Owner</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="wbs : ${entityList}">
+                                <td th:text="${wbs.code}"></td>
+                                <td th:text="${wbs.description}"></td>
+                                <td th:text="${wbs.owner}"></td>
+                                <td th:text="${wbs.type}"></td>
+                                <td th:text="${wbs.status}"></td>
+                                <td><a th:href="@{/wbs/edit/{id}(id=${wbs.id})}"
+                                       class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
+                                <td><a
+                                        th:href="@{/wbs/delete/{id}(id=${wbs.id})}"
+                                        class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>
