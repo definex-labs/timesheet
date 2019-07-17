@@ -24,7 +24,14 @@ public class Utils {
         if (principal instanceof UserDetails) {
             username = ((UserDetails)principal).getUsername();
         } else if (principal instanceof DefaultOidcUser) {
-            username = ((DefaultOidcUser) principal).getEmail();
+            DefaultOidcUser user = ((DefaultOidcUser) principal);
+            username = user.getAttributes().get("upn").toString();
+            if (username == null || username.equals("")) {
+                username = ((DefaultOidcUser) principal).getEmail();
+            }
+            if (username == null || username.equals("")) {
+                username = ((DefaultOidcUser) principal).getName();
+            }
         } else {
             username = principal.toString();
         }

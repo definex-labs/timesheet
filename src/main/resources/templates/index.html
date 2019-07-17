@@ -7,7 +7,7 @@
 </head>
 <body>
 <div layout:fragment="content" th:remove="tag">
-    <p>Most probably authenticated User. Welcome!!</p>
+    <p>Logged in as <span sec:authentication="principal.name"></span>. Welcome!!</p>
     <p>Click on Timesheet to submit!!</p>
 </div>
 </body>

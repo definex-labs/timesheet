@@ -6,7 +6,7 @@
         <div class="container">
             <p>
                 <span sec:authorize="isAuthenticated()" style="display: inline-block;">
-                    Logged user: <span sec:authentication="principal.email"></span> |
+                    Logged user: <span sec:authentication="principal.name"></span> |
                     <a th:href="@{/logout}">Sign Out</a>
                 </span>
             </p>
